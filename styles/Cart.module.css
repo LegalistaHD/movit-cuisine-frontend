@@ -1,0 +1,121 @@
+/* Cart.module.css */
+.cartContainer {
+  background-color: #fff;
+  padding: 20px;
+  max-width: 480px; /* Mobile view width */
+  margin: auto;
+}
+
+.cartHeading {
+  font-size: 2rem;
+  color: red;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.cartItemsList {
+  margin-bottom: 20px;
+}
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cartItemImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.cartItemDetails {
+  flex-grow: 1;
+}
+
+.cartItemName {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.cartItemPrice {
+  margin: 5px 0;
+}
+
+.cartItemQuantity {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cartTotal {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.paymentMethods {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.paymentMethodButton {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.removeButton {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 1em;
+}
+
+.removeButton:hover {
+  background-color: #c0392b;
+}
+
+.processOrderButton {
+  background-color: #f1c40f;
+  color: #e74c3c;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 20px;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 1.2em;
+}
+
+.processOrderButton:hover {
+  background-color: #f7dc75;
+}
+
+
+/* Adjust for larger screens */
+@media (min-width: 480px) {
+  .cartContainer {
+    max-width: 720px;
+  }
+}

@@ -1,0 +1,32 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Mengatur sidebar ke kanan layar */
+    width: 250px; /* Lebar sidebar */
+    height: 100vh; /* Tinggi sidebar, sesuaikan sesuai kebutuhan */
+    background-color: #D61D1D; /* Warna latar belakang sidebar */
+    transition: right 0.3s ease; /* Animasi ketika sidebar muncul */
+    z-index: 1000; /* Pastikan z-index lebih tinggi dari konten utama */
+  }
+  
+  .sidebar.show {
+    right: 0; /* Menggeser sidebar ke kiri saat ditampilkan */
+  }
+  
+  .links {
+    padding: 20px;
+    font-family: 'helvetica-neue', sans-serif; /* Ganti dengan font yang diinginkan */
+  }
+  
+  .links a {
+    display: block;
+    color: #d1e300;
+    font-size: 30px; /* Ganti ukuran teks yang diinginkan */
+    text-decoration: none;
+    margin-bottom: 10px;
+  }
+  
+  .links a:hover {
+    text-decoration: underline;
+  }
+  
