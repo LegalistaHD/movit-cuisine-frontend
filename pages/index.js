@@ -1,8 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
 import Featured from "../components/Featured";
-import PizzaList from "../components/PizzaList";
+import PizzaList from "../components/MenuList";
 import styles from "../styles/Home.module.css";
+import MenuList from "../components/MenuList";
 
 export default function Home() {
   return (
@@ -14,7 +15,7 @@ export default function Home() {
       </Head>
 
       <Featured />
-      <PizzaList />
+      <MenuList />
     </div>
   );
 }

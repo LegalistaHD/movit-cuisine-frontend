@@ -8,11 +8,37 @@ const Order = () => {
   const [cartItems, setCartItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const router = useRouter();
+  const API_REQ_LINK = "http://localhost:8080/api/v1/menu";
+  const [menuItems, setMenuItems] = useState([]); // State untuk menyimpan data menuItems
+
+  useEffect(() => {
+    // Fungsi untuk mengambil data menuItems dari API
+    const fetchMenuItems = async () => {
+      try {
+        const response = await fetch(API_REQ_LINK, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }); // Ganti URL sesuai dengan endpoint API Anda
+        if (!response.ok) {
+          throw new Error('Failed to fetch menu items');
+        }
+        const item = await response.json();
+        setMenuItems(item); // Menyimpan data menuItems ke state
+      } catch (error) {
+        console.error('Error fetching menu items:', error);
+      }
+    };
+
+    // Panggil fungsi fetchMenuItems saat komponen mount
+    fetchMenuItems();
+  }, []);
 
   const addToCart = (item) => {
     const updatedCart = [...cartItems];
   
-    const existingItem = updatedCart.find((cartItem) => cartItem.id === item.id);
+    const existingItem = updatedCart.find((cartItem) => cartItem.menuId === item.menuId);
     if (existingItem) {
       existingItem.quantity++;
     } else {
@@ -26,7 +52,7 @@ const Order = () => {
   
   const increaseQuantity = (itemId) => {
     const updatedCart = cartItems.map((item) => {
-      if (item.id === itemId) {
+      if (item.menuId === itemId) {
         return { ...item, quantity: item.quantity + 1 };
       }
       return item;
@@ -37,7 +63,7 @@ const Order = () => {
   
   const decreaseQuantity = (itemId) => {
     const updatedCart = cartItems.map((item) => {
-      if (item.id === itemId && item.quantity > 0) {
+      if (item.menuId === itemId && item.quantity > 0) {
         const updatedQuantity = item.quantity - 1;
         return { ...item, quantity: updatedQuantity };
       }
@@ -71,16 +97,10 @@ const Order = () => {
     router.push('/cart/CartPage');
   };
 
-  const menuItems = [
-    { id: 1, name: 'Sentana Burger', price: 50000, image: 'sentana.png' },
-    { id: 2, name: 'Ogaden Burger', price: 90000, image: 'ogaden.png' },
-    { id: 3, name: 'Sena Breadless Burger', price: 30000, image: 'breadless.png' },
-    // ...other menu items
-  ];
 
   const filteredMenuItems = searchTerm
     ? menuItems.filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+        item.menuName.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : menuItems;
 
@@ -99,24 +119,24 @@ const Order = () => {
       <main>
         <section className={styles.items}>
         {filteredMenuItems.map((item) => (
-          <div key={item.id} className={styles.menuItem}>
-            <img src={`/img/${item.image}`} alt={item.name} />
+          <div key={item.menuId} className={styles.menuItem}>
+            <img src={item.menuImage} alt={item.menuName} />
             <div className={styles.itemInfo}>
-              <h3>{item.name}</h3>
-              <p>Price: Rp {item.price.toLocaleString()}</p>
-              {cartItems.find((cartItem) => cartItem.id === item.id && (cartItem.quantity !== null && cartItem.quantity !== undefined)) ? (
+              <h3>{item.menuName}</h3>
+              <p>Price: Rp {item.menuPrice.toLocaleString()}</p>
+              {cartItems.find((cartItem) => cartItem.menuId === item.menuId && (cartItem.quantity !== null && cartItem.quantity !== undefined)) ? (
                 <div className={styles.quantityController}>
                   <button
-                    onClick={() => decreaseQuantity(item.id)}
+                    onClick={() => decreaseQuantity(item.menuId)}
                     className={`${styles.quantityButton} ${styles.decreaseButton}`}
                   >
                     -
                   </button>
                   <div className={styles.quantity}>
-                    {cartItems.find((cartItem) => cartItem.id === item.id).quantity}
+                    {cartItems.find((cartItem) => cartItem.menuId === item.menuId).quantity}
                   </div>
                   <button
-                    onClick={() => increaseQuantity(item.id)}
+                    onClick={() => increaseQuantity(item.menuId)}
                     className={styles.quantityButton}
                   >
                     +

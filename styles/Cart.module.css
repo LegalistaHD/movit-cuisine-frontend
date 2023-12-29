@@ -1,4 +1,14 @@
 /* Cart.module.css */
+.inputField {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
 .cartContainer {
   background-color: #fff;
   padding: 20px;

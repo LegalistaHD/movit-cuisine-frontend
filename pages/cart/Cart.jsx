@@ -3,6 +3,42 @@ import styles from '../../styles/Cart.module.css';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const URL_ENDPOINT_API = "http://localhost:8080/api/v1/orders";
+
+  const processOrder = async () => {
+    try {
+      const orderItemsData = cartItems.map((item) => ({
+        menu: { menuId: item.menuId }, // Assuming you have a way to fetch the Menu entity based on menuId
+        quantity: item.quantity,
+      }));
+  
+      const response = await fetch(URL_ENDPOINT_API, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYWloYW4iLCJpYXQiOjE3MDM4NjkyOTMsImV4cCI6MTcwMzg3MDczM30.H-JZsQmNXGSEsETK28EzwH3KSbaVpnAEzYhDeAT8PGY'
+        },
+        body: JSON.stringify({
+          orderDate: '2023-01-01',
+          orderTime: '12:30:00',
+          customerName: name,
+          customerPhone: phone,
+          orderItems: orderItemsData,
+        }),
+      });
+  
+      if (response.ok) {
+        console.log('berhasil disimpan');
+      } else {
+        throw new Error('Failed to process order');
+      }
+    } catch (error) {
+      console.error('Error processing order:', error);
+    }
+  };
+  
 
   useEffect(() => {
     // Load cart items from localStorage when the component mounts
@@ -12,13 +48,14 @@ const Cart = () => {
     }
   }, []);
 
-  const saveCartToLocalStorage = (items) => {
-    localStorage.setItem('cartItems', JSON.stringify(items));
+  const saveCartToLocalStorage = (item) => {
+    localStorage.setItem('cartItems', JSON.stringify(item));
+    console.log("Cart Items saved to localStorage:", item);
   };
 
   const increaseQuantity = (itemId) => {
     const updatedCart = cartItems.map((item) => {
-      if (item.id === itemId) {
+      if (item.menuId === itemId) {
         return { ...item, quantity: item.quantity + 1 };
       }
       return item;
@@ -29,7 +66,7 @@ const Cart = () => {
   
   const decreaseQuantity = (itemId) => {
     const updatedCart = cartItems.map((item) => {
-      if (item.id === itemId && item.quantity > 1) {
+      if (item.menuId === itemId && item.quantity > 1) {
         return { ...item, quantity: item.quantity - 1 };
       }
       return item;
@@ -39,7 +76,7 @@ const Cart = () => {
   };
 
   const removeFromCart = (itemId) => {
-    const updatedCart = cartItems.filter((item) => item.id !== itemId);
+    const updatedCart = cartItems.filter((item) => item.menuId !== itemId);
     setCartItems(updatedCart);
     saveCartToLocalStorage(updatedCart);
   };
@@ -49,7 +86,7 @@ const Cart = () => {
   }
 
   const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
+    (total, item) => total + item.menuPrice * item.quantity,
     0
   );
 
@@ -57,17 +94,19 @@ const Cart = () => {
     <div className={styles.cartContainer}>
       <h2 className={styles.cartHeading}>CART</h2>
       <div className={styles.cartItemsList}>
+        <input className={styles.inputField} type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
+        <input className={styles.inputField} type="text" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone" />
         {cartItems.map((item) => (
-          <div key={item.id} className={styles.cartItem}>
-            <img src={`/img/${item.image}`} alt={item.name} className={styles.cartItemImage} />
+          <div key={item.menuId} className={styles.cartItem}>
+            <img src={item.menuImage} alt={item.menuName} className={styles.cartItemImage} />
             <div className={styles.cartItemDetails}>
-              <h3 className={styles.cartItemName}>{item.name}</h3>
-              <p className={styles.cartItemPrice}>Rp {item.price.toLocaleString()}</p>
+              <h3 className={styles.cartItemName}>{item.menuName}</h3>
+              <p className={styles.cartItemPrice}>Rp {item.menuPrice ? item.menuPrice.toLocaleString() : 'Not available'}</p>
               <div className={styles.cartItemQuantity}>
-                <button onClick={() => decreaseQuantity(item.id)}>-</button>
+                <button onClick={() => decreaseQuantity(item.menuId)}>-</button>
                 <span>Qty: {item.quantity}</span>
-                <button onClick={() => increaseQuantity(item.id)}>+</button>
-                <button onClick={() => removeFromCart(item.id)}>Remove</button>
+                <button onClick={() => increaseQuantity(item.menuId)}>+</button>
+                <button onClick={() => removeFromCart(item.menuId)}>Remove</button>
               </div>
             </div>
           </div>
@@ -76,8 +115,8 @@ const Cart = () => {
       <div className={styles.cartTotal}>
         <strong>Total:</strong> Rp {totalPrice.toLocaleString()}
       </div>
-      {/* Tambahkan tombol-tombol metode pembayaran */}
-      <button className={styles.processOrderButton}>
+      
+      <button className={styles.processOrderButton} onClick={processOrder}>
         PROCESS ORDER
       </button>
     </div>

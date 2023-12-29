@@ -76,6 +76,7 @@ const BookPage = () => {
     setTime(selectedTime);
   };
 
+
   return (
     <div>
       <h1>BOOK YOUR TABLE</h1>
@@ -84,10 +85,14 @@ const BookPage = () => {
           <button
             key={table.id}
             className={`${styles.tableButton} ${
-              table.availability[selectedDate.toISOString().split('T')[0]][time.padStart(2, '0')]}
+              table.availability[selectedDate.toISOString().split('T')[0]][time.padStart(2, '0')] === 'booked'
+                ? styles.booked
+                : table.availability[selectedDate.toISOString().split('T')[0]][time.padStart(2, '0')] === 'selected'
+                ? styles.selected
+                : ''
             }`}
             onClick={() => handleTableSelect(table.id)}
-            disabled={table.availability[selectedDate.toISOString().split('T')[0]][time.padStart(2, '0')] === 'booked'}
+            disabled={table.availability[selectedDate.toISOString().split('T')[0]][time.padStart(2, '0')] === 'booked' || time === ''}
           >
             {table.id}
           </button>

@@ -5,15 +5,11 @@ import styles from "../../styles/Admin.module.css";
 import { resetTables } from '../book/[id]';
 
 const mockProducts = [
-  { _id: "1", title: "Pizza Margherita", prices: [10, 15, 20], img: "img1.jpg" },
-  { _id: "2", title: "Pepperoni Pizza", prices: [12, 18, 24], img: "img2.jpg" },
-  // Add more mock products as needed
+  { _id: "1", title: "Sentana Burger", prices: 50000, img: "sentana.png" },
 ];
 
 const mockOrders = [
-  { _id: "101", customer: "John Doe", total: 15, method: 0, status: 0 },
-  { _id: "102", customer: "Jane Smith", total: 20, method: 1, status: 1 },
-  // Add more mock orders as needed
+  { _id: "101", customer: "Raihan", total: 50000, method: 0, status: 0 },
 ];
 
 const Index = () => {
@@ -62,7 +58,7 @@ const Index = () => {
                 <tr key={product._id}>
                   <td>{product.img}</td>
                   <td>{product.title}</td>
-                  <td>{product.prices.join(", ")}</td>
+                  <td>{product.prices}</td>
                   <td>
                     <button onClick={() => handleDelete(product._id)}>Delete</button>
                   </td>
@@ -87,7 +83,7 @@ const Index = () => {
               {orderList.map((order) => (
                 <tr key={order._id}>
                   <td>{order.customer}</td>
-                  <td>${order.total}</td>
+                  <td>Rp{order.total}</td>
                   <td>{status[order.status]}</td>
                   <td>
                     <button onClick={() => handleStatus(order._id)}>Next Stage</button>
