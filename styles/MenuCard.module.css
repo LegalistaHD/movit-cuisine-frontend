@@ -1,0 +1,53 @@
+.container {
+  width: 22%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 40px;
+  cursor: pointer;
+}
+
+.menuItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.menuItem img {
+  width: 100%; /* Pastikan gambar memenuhi lebar parent */
+  max-width: 200px; /* Sesuaikan ukuran maksimum gambar */
+  height: auto;
+}
+
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #d1411e;
+  align-items: center;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+  align-items: center;
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  .price {
+    font-size: 24px;
+  }
+}
