@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../styles/Cart.module.css';
+import { useRouter } from 'next/router';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const URL_ENDPOINT_API = "http://localhost:8080/api/v1/orders";
+  const URL_ENDPOINT_API = "http://localhost:8080/api/v1/orders/insert";
+  const router = useRouter();
 
   const processOrder = async () => {
     try {
@@ -18,11 +20,8 @@ const Cart = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYWloYW4iLCJpYXQiOjE3MDM4NjkyOTMsImV4cCI6MTcwMzg3MDczM30.H-JZsQmNXGSEsETK28EzwH3KSbaVpnAEzYhDeAT8PGY'
-        },
+          },
         body: JSON.stringify({
-          orderDate: '2023-01-01',
-          orderTime: '12:30:00',
           customerName: name,
           customerPhone: phone,
           orderItems: orderItemsData,
@@ -31,6 +30,10 @@ const Cart = () => {
   
       if (response.ok) {
         console.log('berhasil disimpan');
+        localStorage.setItem('customerName', name);
+        localStorage.setItem('customerPhone', phone);
+        localStorage.setItem('totalPrice', totalPrice);
+        router.push('/receipt');
       } else {
         throw new Error('Failed to process order');
       }

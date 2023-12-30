@@ -8,9 +8,6 @@ const Sidebar = ({ showSidebar, toggleSidebar }) => {
         <Link href="/">
           <div onClick={toggleSidebar}>HOME</div>
         </Link>
-        <Link href="/book/[id]" as="/book/1">
-          <div onClick={toggleSidebar}>BOOK</div>
-        </Link>
         <Link href="/order/[id]" as="/order/1">
           <div onClick={toggleSidebar}>ORDER</div>
         </Link>

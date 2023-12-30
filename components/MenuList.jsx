@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from '../styles/MenuList.module.css';
-import PizzaCard from './MenuCard';
+import MenuCard from './MenuCard';
 
 const MenuList = () => {
   return (
@@ -13,23 +13,16 @@ const MenuList = () => {
       </h2>
       
       <div className={styles.buttonWrapper}>
-        <Link href="/book/[id]" as="/book/1" passHref>
-          <div className={styles.button}>Go to Book</div>
-        </Link>
         <Link href="/order/[id]" as="/order/1" passHref>
           <div className={styles.button}>Go to Order</div>
         </Link>
       </div>
   
       <div className={styles.wrapper}>
-          <PizzaCard />
-          <PizzaCard />
-          <PizzaCard />
-          <PizzaCard />
-          <PizzaCard />
-          <PizzaCard />
-          <PizzaCard />
-          <PizzaCard />
+          <MenuCard />
+          <MenuCard />
+          <MenuCard />
+          <MenuCard />
       </div>
       
     </div>
