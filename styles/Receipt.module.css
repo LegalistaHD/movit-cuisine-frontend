@@ -1,0 +1,98 @@
+/* Receipt.module.css */
+
+/* Pengaturan umum */
+.receiptContainer {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Bagian informasi pelanggan */
+  .customerInfo {
+    margin-bottom: 20px;
+  }
+  
+  .customerInfo h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+  }
+  
+  .customerInfo p {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  
+  /* Daftar item yang dipesan */
+  .orderedItemsList {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+  }
+  
+  .orderItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .orderItem img {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+  }
+  
+  .orderItemDetails {
+    flex-grow: 1;
+  }
+  
+  .orderItemName {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  
+  .orderItemQuantity {
+    margin: 0;
+  }
+  
+  /* Pesan terima kasih */
+  .thanksMessage {
+    margin-top: 30px;
+    font-size: 2rem;
+    color: crimson;
+    text-align: center;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: bold;
+  }
+  
+  /* Responsivitas */
+  @media screen and (max-width: 480px) {
+    .receiptContainer {
+      padding: 10px;
+    }
+  
+    .customerInfo h2 {
+      font-size: 1.3rem;
+    }
+  
+    .customerInfo p {
+      font-size: 1rem;
+    }
+  
+    .orderItem img {
+      width: 40px;
+      height: 40px;
+    }
+  
+    .orderItemName {
+      font-size: 1rem;
+    }
+  
+    .orderItemQuantity {
+      font-size: 0.9rem;
+    }
+  
+    .thanksMessage {
+      font-size: 1.5rem;
+    }
+  }
+  
